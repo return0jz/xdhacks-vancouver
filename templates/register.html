@@ -2,14 +2,24 @@
 
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css')}}">
+<script>
+  submitMail = function() {
+    var email = document.getElementById("email").value;
+    var isPatient = document.getElementById("isPatient").checked;
+    alert(email + " " + isPatient);
+  }
+</script>
 {% endblock %}
 
 {% block body %}
 <h1> Please enter your gmail:</h1>
-<p> Your key will be sent to you shortly after. </p>
-<form action="/action_page.php">
-    <label for="fname">Email:</label><br>
-    <input type="text" id="fname" name="fname" value=""><br>
-    <input type="submit" value="Submit">
-  </form> 
+<p> Your authorization key(s) will be sent to you shortly after. </p>
+<form>
+  <label for="email">Email:</label><br>
+  <input type="text" id="email" name="email" value=""><br>
+  <input type="checkbox" id="isPatient" name="isPatient"> 
+  <label for="isPatient"> Are you a patient? </label><br>
+  <br>
+  <input type="submit" value="Submit" onclick="submitMail()">
+</form> 
 {% endblock %}
