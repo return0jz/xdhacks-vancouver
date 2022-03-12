@@ -6,7 +6,24 @@
   submitMail = function() {
     var email = document.getElementById("email").value;
     var isPatient = document.getElementById("isPatient").checked;
-    alert(email + " " + isPatient);
+    fetch("/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: email,
+        isPatient: isPatient
+      })
+    }).then(res => res.json())
+    .then(data => {
+      print("GOOD");
+      if (isPatient) {
+        window.location.href = "/login_patient";
+      } else {
+        window.location.href = "/login_doctor";
+      }
+    })
   }
 </script>
 {% endblock %}
@@ -22,4 +39,5 @@
   <br>
   <input type="submit" value="Submit" onclick="submitMail()">
 </form> 
+
 {% endblock %}

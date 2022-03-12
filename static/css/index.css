@@ -16,10 +16,12 @@
     color: white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 15px;
+    box-shadow: 0px 15px 15px rgba(0, 0, 0, 0.418);
 }
 
 #title_box {
-    margin: auto;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.726);
+    margin: 20px;
     padding-top: 50px;
     padding-bottom: 50px;
 }
@@ -49,6 +51,7 @@
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: 17px;
     color: white;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.39);
 }
 
 #title_box nav ul a:hover {

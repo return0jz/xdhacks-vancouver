@@ -1,9 +1,21 @@
+from re import T
+import os
 from flask import Flask, render_template, request, url_for
+from flask_mail import Mail, Message
 from hashlib import sha256
 
 patient_keys = ["GENESIS"]
+doctor_keys = [("GENESIS1", "GENESIS2")]
 
 app = Flask(__name__)
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_DEBUG'] = True
+app.config['MAIL_USERNAME'] = 'xdhacksvancouverbot@gmail.com'
+app.config['MAIL_PASSWORD'] = os.environ['HACK_PASSWORD']
+print(os.environ['HACK_PASSWORD'])
+mail = Mail(app)
 
 @app.route("/")
 def home():
@@ -14,6 +26,18 @@ def register():
     if request.method == 'GET':
         return render_template("register.html")
     else:
-        new_key = sha256(patient_keys[-1].encode()).hexdigest()
-        patient_keys.append(new_key)
-        return new_key
+        data = request.json
+        if data['isPatient']:
+            new_key = sha256(patient_keys[-1].encode()).hexdigest()
+            patient_keys.append(new_key)
+            msg = Message("Your authentification key for Unirecords", sender="from@example.com", recipients=[data['email']])
+            msg.body = f'Authentification key: {new_key}'
+            mail.send(msg)
+        else:
+            new_public_key = sha256(patient_keys[-1][0].encode()).hexdigest()
+            new_private_key = sha256(patient_keys[-1][1].encode()).hexdigest()
+            doctor_keys.append((new_public_key, new_private_key))
+            msg = Message("Your authentification key for Unirecords", sender="from@example.com", recipients=[data['email']])
+            msg.body = f'Public key: {new_public_key}\nPrivate key: {new_private_key}'
+            mail.send(msg)
+        return "success"
