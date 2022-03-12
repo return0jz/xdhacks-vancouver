@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css')}}">
+{% endblock %}
+
+{% block body %}
+<div id="title_box">
+    <img id="logo" src="{{ url_for('static', filename='logo.png')}}">
+    <nav>
+        <ul>
+            <li><a href="/register">Register</a></li>
+            <li><a href="/login_patient">Log In for Patients</a></li>
+            <li><a href="/login_doctor">Log In for Doctors</a></li>
+            <li><a href="/about">About Us</a></li>
+          </ul>
+    <nav>
+    <p id="explain"> A universal blockchain-based electronic health records system. </p>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/register.css')}}">
+{% endblock %}
+
+{% block body %}
+<h1> Please enter your gmail:</h1>
+<p> Your key will be sent to you shortly after. </p>
+<form action="/action_page.php">
+    <label for="fname">Email:</label><br>
+    <input type="text" id="fname" name="fname" value=""><br>
+    <input type="submit" value="Submit">
+  </form> 
+{% endblock %}
