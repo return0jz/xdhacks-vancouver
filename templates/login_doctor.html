@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css')}}">
+
+{% endblock %}
+
+{% block body %}
+    <div id="searchbox">
+        <input id="search" type="text" placeholder="Enter your private doctor key:">
+    </div>
+
+<script>
+    document.getElementById("searchbox").addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        window.location.href = "/doctor/"+ document.getElementById("search").value;
+    }
+});
+</script>
+{% endblock %}

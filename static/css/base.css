@@ -1,3 +1,7 @@
+body {
+    background-color: rgb(246, 253, 255);
+}
+
 * {
     margin: 0;
     padding: 0;

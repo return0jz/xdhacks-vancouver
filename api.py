@@ -6,6 +6,12 @@ from hashlib import sha256
 
 patient_keys = ["GENESIS"]
 doctor_keys = [("GENESIS1", "GENESIS2")]
+patient_db = {
+    "GENESIS": { 
+        "records": [""],
+        "doctor_keys": [""]
+    }, 
+}
 
 app = Flask(__name__)
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
@@ -30,6 +36,7 @@ def register():
         if data['isPatient']:
             new_key = sha256(patient_keys[-1].encode()).hexdigest()
             patient_keys.append(new_key)
+            patient_db[new_key] = {"records": [], "doctor_keys": []}
             msg = Message("Your authentification key for Unirecords", sender="from@example.com", recipients=[data['email']])
             msg.body = f'Authentification key: {new_key}'
             mail.send(msg)
@@ -41,3 +48,18 @@ def register():
             msg.body = f'Public key: {new_public_key}\nPrivate key: {new_private_key}'
             mail.send(msg)
         return "success"
+@app.route("/login_patient")
+def login_patient():
+    return render_template("login_patient.html")
+
+@app.route("/login_doctor")
+def login_doctor():
+    return render_template("login_doctor.html")
+
+@app.route("/patient/<key>")
+def patient_view(key):
+    return render_template("patient_view.html")
+
+@app.route("/patient/<key>/update")
+def patient_update(key):
+    return ("YES")
