@@ -1,0 +1,13 @@
+#patientsBox {
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    background-color: white;
+    padding: 50px
+}
+h2 {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+p {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}

@@ -15,9 +15,7 @@
         email: email,
         isPatient: isPatient
       })
-    }).then(res => res.json())
-    .then(data => {
-      print("GOOD");
+    }).then(res => {
       if (isPatient) {
         window.location.href = "/login_patient";
       } else {
@@ -29,15 +27,16 @@
 {% endblock %}
 
 {% block body %}
-<h1> Please enter your gmail:</h1>
-<p> Your authorization key(s) will be sent to you shortly after. </p>
-<form>
-  <label for="email">Email:</label><br>
-  <input type="text" id="email" name="email" value=""><br>
-  <input type="checkbox" id="isPatient" name="isPatient"> 
-  <label for="isPatient"> Are you a patient? </label><br>
-  <br>
-  <input type="submit" value="Submit" onclick="submitMail()">
-</form> 
+
+<div id="regbox">
+  <h1> Please enter your gmail:</h1>
+  <p> Your authorization key(s) will be sent to you shortly after. </p>
+  <form>
+    <input type="text" id="email" name="email" placeholder="Email"value=""><br>
+    <input type="checkbox" id="isPatient" name="isPatient"> 
+    <label for="isPatient"> Are you a patient? </label><br>
+  </form> 
+  <button onclick="submitMail()"> Submit </button>
+</div>
 
 {% endblock %}

@@ -1,7 +1,14 @@
 {% extends 'base.html' %}
 
 {% block head %}
-{% endblock %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/patient_view.css')}}">
 
+{% endblock %}
 {% block body %}
+
+<ul id="myUL">
+    <li> <a href="{{url1}}"> Manage doctor access permisions </a></li>
+    <li> <a href="{{url2}}"> Manage your records </a></li>
+</ul>
+
 {% endblock %}

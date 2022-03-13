@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/doctor_view.css')}}">
+{% endblock %}
+
+{% block body %}
+<div id="patientsBox">
+    {% for i, val in enumerate(patients)%}
+        <h2 class="pIndex">{{i+1}}</h2>
+        {% for j in val["records"]%}
+            <p class="recordPiece">{{j}}</p>
+        {% endfor %}
+    {% endfor %}
+</div>
+{{patients_name}}
+{% endblock %}

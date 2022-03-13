@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/patient_page.css')}}">
+<script>
+const submitKeys = function() {
+    console.log("pressed");
+    let goodKeys = []
+    let listItems = document.getElementsByTagName('li');
+    for (let i = 0; i < listItems.length; i++) {
+        if (listItems[i].style.display != 'none') {
+            goodKeys.push(listItems[i].innerText.replace(/[^a-z0-9]/gi, ''))
+        }     
+    }
+    console.log(goodKeys);
+    (async () => {
+        const rawResponse = await fetch('/api/updatePerm', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 
+            "doctor_keys": goodKeys,
+            "patient_key" : document.getElementById("keyHolder").innerHTML
+            })
+        });
+        window.location.href = "/patient/"+document.getElementById("keyHolder").innerHTML
+    })();
+
+    document.getElementById('submitButton').disabled = true;
+}
+</script>
+{% endblock %}
+{% block body %}
+<p id="keyHolder" style="display:none">{{key}}</p>
+<div id="perm">
+    <div id="myDIV" class="header">
+        <h2> Doctor access permisions: </h2>
+        <input type="text" id="myInput" placeholder="Enter your doctor's public key:">
+        <span onclick="newElement()" class="addBtn">Add</span>
+    </div>
+
+    <ul id="myUL">
+        {% for i in inp_keys %}
+            <li> {{i}} </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<button onclick="submitKeys()" id="submitButton"> Submit </button>
+
+<script>
+    // Create a "close" button and append it to each list item
+var myNodelist = document.getElementsByTagName("LI");
+var i;
+for (i = 0; i < myNodelist.length; i++) {
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("\u00D7");
+  span.className = "close";
+  span.appendChild(txt);
+  myNodelist[i].appendChild(span);
+}
+
+// Click on a close button to hide the current list item
+var close = document.getElementsByClassName("close");
+var i;
+for (i = 0; i < close.length; i++) {
+  close[i].onclick = function() {
+    var div = this.parentElement;
+    div.style.display = "none";
+  }
+}
+
+// Create a new list item when clicking on the "Add" button
+function newElement() {
+  var li = document.createElement("li");
+  var inputValue = document.getElementById("myInput").value;
+  var t = document.createTextNode(inputValue);
+  li.appendChild(t);
+  if (inputValue === '') {
+    alert("You must write something!");
+  } else {
+    document.getElementById("myUL").appendChild(li);
+  }
+  document.getElementById("myInput").value = "";
+
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("\u00D7");
+  span.className = "close";
+  span.appendChild(txt);
+  li.appendChild(span);
+
+  for (i = 0; i < close.length; i++) {
+    close[i].onclick = function() {
+      var div = this.parentElement;
+      div.style.display = "none";
+    }
+  }
+}
+</script>
+{% endblock %}
